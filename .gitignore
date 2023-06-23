@@ -4,6 +4,7 @@ target
 *.iml
 *.class
 *.log
+*.db
 .metadata
 bin/
 tmp/
