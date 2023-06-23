@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_0cnuk6f" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.7.3">
+  <decision id="DMN_process" name="Process dmn">
+    <extensionElements>
+      <biodi:bounds x="150" y="150" width="180" height="80" />
+    </extensionElements>
+    <decisionTable id="decisionTable_1">
+      <input id="input_1" label="valor da compra" camunda:inputVariable="valorCompra">
+        <inputExpression id="inputExpression_1" typeRef="double" expressionLanguage="feel">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0zqn5jy">
+        <inputExpression id="LiteralExpression_093en4s" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="output_1" label="status" typeRef="string" />
+      <rule id="DecisionRule_0k7bmcr">
+        <inputEntry id="UnaryTests_1n2zmtx">
+          <text>&gt;=100</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06tla0y">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0inrtjq">
+          <text>"gratis"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1jkdxxv">
+        <inputEntry id="UnaryTests_04r7x1a">
+          <text>&lt;100</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nt9a1r">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1njb374">
+          <text>"cobrar"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
