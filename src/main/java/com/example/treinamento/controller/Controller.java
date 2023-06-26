@@ -12,10 +12,12 @@ import org.camunda.bpm.engine.task.Task;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static com.example.treinamento.util.DateUtil.millecondsBeautiful;
+import static com.example.treinamento.util.StringUtil.safeToString;
 
 @RestController
 @AllArgsConstructor
@@ -24,7 +26,6 @@ public class Controller {
     private RuntimeService runtimeService;
     private TaskService taskService;
     private HistoryService historyService;
-
 
     @PostMapping("/mensagem")
     public ResponseEntity<String> mensagemCamunda(@RequestParam(value = "businessKey") String businessKey,
@@ -36,9 +37,9 @@ public class Controller {
     }
 
     @PostMapping("/criar")
-    public ResponseEntity<String> iniciarProcesso(@RequestParam(value = "businessKey") String businessKey){
+    public ResponseEntity<String> iniciarProcesso(@RequestParam(value = "businessKey") String businessKey,@RequestParam(value = "flowId") String flowId){
 
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("remocao",businessKey);
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(flowId,businessKey);
 
         return ResponseEntity.ok("Processo iniciado com sucesso: " + processInstance.getBusinessKey());
     }
@@ -84,6 +85,9 @@ public class Controller {
             HashMap<String, String> map = new HashMap<>();
             map.put("id",e.getId());
             map.put("nome",e.getName());
+            map.put("dataInicio",safeToString(e.getStartTime()));
+            map.put("dataFinal",safeToString(e.getEndTime()));
+            map.put("duracao", millecondsBeautiful(e.getDurationInMillis()));
             listaCompleta.add(map);
         });
 
